@@ -5,17 +5,18 @@ import java.util.List;
 
 public class AverageSensor implements Sensor{
     private List<Sensor> sensors = new ArrayList<>();
-    private boolean averageSensorStatus;
     private List<Integer> tempReadings = new ArrayList<>();
 
     public void addSensor(Sensor toAdd){
         sensors.add(toAdd);
-        averageSensorStatus = toAdd.isOn();
     }
 
     @Override
     public boolean isOn() {
-        return averageSensorStatus;
+        if(sensors.stream().anyMatch(Sensor::isOn)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -23,7 +24,6 @@ public class AverageSensor implements Sensor{
         for(Sensor s : sensors){
             s.setOn();
         }
-        averageSensorStatus = true;
     }
 
     @Override
@@ -31,12 +31,11 @@ public class AverageSensor implements Sensor{
         for(Sensor s : sensors){
             s.setOff();
         }
-        averageSensorStatus = false;
     }
 
     @Override
     public int read() throws IllegalArgumentException {
-        if (!averageSensorStatus) {
+        if (sensors.stream().anyMatch(s -> s.isOn() == false)) {
             throw new IllegalArgumentException();
         }
         int temp = sensors.stream()

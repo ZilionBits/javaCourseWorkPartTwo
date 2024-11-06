@@ -24,12 +24,11 @@ public class Program {
 
         AverageSensor averageSensor = new AverageSensor();
         averageSensor.addSensor(s1);
-        System.out.println("s1 temperature: " + s1.read());
         averageSensor.addSensor(s2);
-        s2.setOn();
-        System.out.println("s2 temperature: " + s2.read());
-        s3.setOn();
         averageSensor.addSensor(s3);
+        averageSensor.setOn();
+        System.out.println("s1 temperature: " + s1.read());
+        System.out.println("s2 temperature: " + s2.read());
         System.out.println("s3 temperature: " + s3.read());
 
         System.out.println("Average temperature: " + averageSensor.read());
