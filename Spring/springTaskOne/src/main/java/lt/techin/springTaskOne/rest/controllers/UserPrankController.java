@@ -1,5 +1,6 @@
-package lt.techin.springTaskOne.rest;
+package lt.techin.springTaskOne.rest.controllers;
 
+import lt.techin.springTaskOne.rest.users.UserPrank;
 import lt.techin.springTaskOne.rest.dto.UserRequest;
 import lt.techin.springTaskOne.rest.services.UserService;
 import org.springframework.http.HttpStatus;

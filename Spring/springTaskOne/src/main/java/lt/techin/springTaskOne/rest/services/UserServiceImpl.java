@@ -1,7 +1,7 @@
 package lt.techin.springTaskOne.rest.services;
 
-import lt.techin.springTaskOne.rest.UserPrank;
-import lt.techin.springTaskOne.rest.UsersRepository;
+import lt.techin.springTaskOne.rest.users.UserPrank;
+import lt.techin.springTaskOne.rest.repository.UsersRepository;
 import lt.techin.springTaskOne.rest.dto.UserRequest;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package lt.techin.springTaskOne.rest.services;
 
-import lt.techin.springTaskOne.rest.UserPrank;
+import lt.techin.springTaskOne.rest.users.UserPrank;
 import lt.techin.springTaskOne.rest.dto.UserRequest;
 
 import java.util.List;

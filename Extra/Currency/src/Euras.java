@@ -7,6 +7,11 @@ public class Euras implements Bank {
     SequenceGenerator uniqueCustomerId = new SequenceGenerator();
     SequenceGenerator uniqueAccountId = new SequenceGenerator();
     Set<Customer> customers = new HashSet<>();
+    CurrencyConverter currencyConverter;
+
+    public Euras(CurrencyConverter currencyConverter) {
+        this.currencyConverter = currencyConverter;
+    }
 
     @Override
     public Customer createCustomer(PersonCode personCode, PersonName personName)
@@ -18,14 +23,23 @@ public class Euras implements Bank {
             throw new NullPointerException("Person name is required.");
         }
 
-        return new Customer(uniqueCustomerId.getNext(),personCode,personName);
+        if(customers.stream().anyMatch(c -> c.getPersonCode().equals(personCode))){
+            throw new CustomerCreateException("Customer already exists.");
+        }
+
+        Customer customer = new Customer(uniqueCustomerId.getNext(),personCode,personName);
+        customers.add(customer);
+
+        return customer;
     }
 
     @Override
     public Account createAccount(Customer customer, Currency currency) {
 
+        Account account = new Account(uniqueAccountId.getNext(), customer, currency, new Money(0.0));
+        customer.addAccount(account);
 
-        return new Account(uniqueAccountId.getNext(),customer,currency,new Money(0.0));
+        return account;
     }
 
     @Override

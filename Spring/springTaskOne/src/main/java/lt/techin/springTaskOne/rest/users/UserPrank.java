@@ -1,4 +1,4 @@
-package lt.techin.springTaskOne.rest;
+package lt.techin.springTaskOne.rest.users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
