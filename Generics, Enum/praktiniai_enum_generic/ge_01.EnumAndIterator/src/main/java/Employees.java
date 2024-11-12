@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Employees {
@@ -20,17 +21,28 @@ public class Employees {
     }
 
     public void print(Education education){
-        for(Person person : persons){
-            if(person.getEducation().equals(education)){
+        Iterator<Person> iterator = persons.iterator();
+
+        while (iterator.hasNext()) {
+            Person person = iterator.next();
+            if (person.getEducation().equals(education)) {
                 System.out.println(person);
             }
         }
+//        for(Person person : persons){
+//            if(person.getEducation().equals(education)){
+//                System.out.println(person);
+//            }
+//        }
     }
 
     public void fire(Education education){
-        for(Person person : persons){
+        Iterator<Person> iterator = persons.iterator();
+
+        while(iterator.hasNext()){
+            Person person = iterator.next();
             if(person.getEducation().equals(education)){
-                persons.remove(person);
+                iterator.remove();
             }
         }
     }
