@@ -44,6 +44,7 @@ public class Euras implements Bank {
 
     @Override
     public Operation transferMoney(Account account, Account account1, Money money) {
+
         return null;
     }
 
