@@ -19,5 +19,11 @@ public class Main {
         boolean result = BinarySearch.search(array, Integer.parseInt(searchedValue));
 
         // Print here the result
+
+        if(result){
+            System.out.println("Value " + searchedValue + " is in the array");
+        } else {
+            System.out.println("Value " + searchedValue + " is not in the array");
+        }
     }
 }

@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class GuessingGame {
@@ -13,10 +14,29 @@ public class GuessingGame {
         instructions(lowerLimit, upperLimit);
 
         // write the guessing logic here
+        while(lowerLimit != upperLimit){
+            int guess = average(lowerLimit, upperLimit);
+
+            if(isGreaterThan(guess)){
+                lowerLimit = guess + 1;
+            } else {
+                upperLimit = guess;
+            }
+        }
+
+        System.out.println("The number you're thinking of is " + average(lowerLimit, upperLimit));
 
     }
 
     // implement here the methods isGreaterThan and average
+    public boolean isGreaterThan(int value){
+        System.out.println("Is your number greater than " + value + "? (y/n)");
+        return reader.nextLine().equals("y");
+    }
+
+    public int average(int firstNumber, int secondNumber){
+        return (firstNumber+secondNumber)/2;
+    }
 
     public void instructions(int lowerLimit, int upperLimit) {
         int maxQuestions = howManyTimesHalvable(upperLimit - lowerLimit);
