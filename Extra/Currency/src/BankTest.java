@@ -11,6 +11,6 @@ public class BankTest extends BaseTest {
 
     @Override
     protected CurrencyConverter createCurrencyConverter(CurrencyRatesProvider currencyRatesProvider) {
-        return new Kontora();
+        return new Kontora(currencyRatesProvider);
     }
 }
