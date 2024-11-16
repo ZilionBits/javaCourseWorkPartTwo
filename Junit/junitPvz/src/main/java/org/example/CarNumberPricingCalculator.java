@@ -23,11 +23,17 @@ class CarNumberPricingCalculator {
 	 *
 	 * Jeigu prie aukščiau
 	 * minėto raidžių rinkinio pridėsime tris vienodus skaičius - 7000 EUR.
+	 *
+	 *
 	 * Jeigu numeris yra ne iš trijų simbolių ir trijų skaičių (1-6 simboliai)
-	 * jis yra vardinis - kaina 10 000 EUR. 
+	 * jis yra vardinis - kaina 10 000 EUR.
+	 *
+	 *
 	 * Jei skaičiuoklei paduodamas blogo formato numeris - turi mesti 
 	 * IllegalArgumentException su pranešimu - "Incorrect plate number format. Must be 1-6 symbols
-	 * latin letters and number combination" 
+	 * latin letters and number combination"
+	 *
+	 *
 	 * mažosiomis ir d P.S. NIEKADA realiose sistemose nenaudokite float/double
 	 * pinigų ir kitoms tikslioms operacijoms tam naudokite BigDecimal tipą!
 	 */
@@ -40,34 +46,45 @@ class CarNumberPricingCalculator {
 	 
 	 
 	 public double calculatePrice(String number) {
+
+		 if(number.isEmpty() || number.length() > 6){
+			 throw new IllegalArgumentException("Incorrect plate number format. Must be 1-6 symbols latin letters and number combination");
+		 }
 		 
-		 double numberPlatePrice = 0;
+		 double numberPlatePrice = 10000;
 		 String[] numberPlateChars;
 
 		 numberPlateChars =  number.split("");
 		 System.out.println(Arrays.toString(numberPlateChars));
 
 
-		 boolean firstRule = (numberPlateChars[0].contains(numberPlateChars[1]) && numberPlateChars[1].contains(numberPlateChars[2]))
-				 || (numberPlateChars[3].contains(numberPlateChars[4]) && numberPlateChars[4].contains(numberPlateChars[5]))
-				 || ((numberPlateChars[3].contains("0") || numberPlateChars[3].contains("6"))
-				 && (numberPlateChars[4].contains("0") || numberPlateChars[4].contains("6"))
-				 && (numberPlateChars[5].contains("1") || numberPlateChars[5].contains("6")));
+		 boolean firstRule = number.length() == 6 && ((numberPlateChars[0].equals(numberPlateChars[1]) && numberPlateChars[1].equals(numberPlateChars[2]))
+                 || (numberPlateChars[3].equals(numberPlateChars[4]) && numberPlateChars[4].equals(numberPlateChars[5]))
+                 || ((numberPlateChars[3].equals("0") || numberPlateChars[3].equals("6"))
+                 && (numberPlateChars[4].equals("0") || numberPlateChars[4].equals("6"))
+                 && (numberPlateChars[5].equals("1") || numberPlateChars[5].equals("6"))));
 
-		 boolean secondRule = (numberPlateChars[0].contains(numberPlateChars[1]) && numberPlateChars[1].contains(numberPlateChars[2]))
-				 && (numberPlateChars[3].contains(numberPlateChars[4]) && numberPlateChars[4].contains(numberPlateChars[5]));
+		 boolean secondRule = number.length() == 6 && (numberPlateChars[0].equals(numberPlateChars[1]) && numberPlateChars[1].equals(numberPlateChars[2]))
+				 && (numberPlateChars[3].equals(numberPlateChars[4]) && numberPlateChars[4].equals(numberPlateChars[5]));
 
 		 boolean thirdRule = (number.contains("GOD") || number.contains("KLR") || number.contains("BOS"));
 
+		 boolean forthRule = number.length() == 6 && (thirdRule)
+				 && (numberPlateChars[3].equals(numberPlateChars[4]) && numberPlateChars[4].equals(numberPlateChars[5]));
 
-		 if(firstRule){
+
+		 if(firstRule && !secondRule && !forthRule){
 			 numberPlatePrice = 1000;
-		 } else if (secondRule) {
+		 } else if(secondRule){
 			 numberPlatePrice = 5000;
+		 } else if(thirdRule && !forthRule){
+			 numberPlatePrice = 2000;
+		 } else if(forthRule){
+			 numberPlatePrice = 7000;
 		 }
 
-
 		 return numberPlatePrice;
+
 	 }
 	
 }

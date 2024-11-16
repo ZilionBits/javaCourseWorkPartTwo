@@ -5,7 +5,6 @@ public class Main {
 
         CarNumberPricingCalculator carNumberPricingCalculator = new CarNumberPricingCalculator();
 
-        System.out.println(carNumberPricingCalculator.calculatePrice("AAA999"));
-
+        System.out.println("Price: " + carNumberPricingCalculator.calculatePrice("SNAKE"));
     }
 }
