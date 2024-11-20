@@ -1,9 +1,7 @@
 package lt.stud.techin.library.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +22,16 @@ public class Book {
     private double price;
     private String cover;
     private boolean reserved;
+    @ManyToOne
+    private Category bookCategory;
+
+    public void addCategory(Category category){
+        this.bookCategory = category;
+        category.getBooks().add(this);
+    }
+
+    public void removeCategory(){
+        this.bookCategory.getBooks().remove(this);
+        this.bookCategory = null;
+    }
 }
