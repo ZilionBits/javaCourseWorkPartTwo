@@ -1,6 +1,7 @@
 package lt.stud.techin.library.controller;
 
 import lt.stud.techin.library.dataTransferObject.CategoryRequest;
+import lt.stud.techin.library.model.Book;
 import lt.stud.techin.library.model.Category;
 import lt.stud.techin.library.services.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class CategoryController {
     @GetMapping
     List<Category> getCategory(){
         return categoryService.getCategory();
+    }
+
+    @GetMapping("/{id}")
+    public List<Book> getBooksByCategoryId(@PathVariable Long id){
+        return categoryService.getBooksByCategoryId(id);
     }
 
     @PostMapping

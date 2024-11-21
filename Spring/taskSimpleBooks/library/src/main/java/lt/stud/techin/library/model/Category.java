@@ -1,5 +1,6 @@
 package lt.stud.techin.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Category {
     @GeneratedValue
     private Long id;
     private String name;
+    @JsonIgnore
     @OneToMany
     private List<Book> books;
 

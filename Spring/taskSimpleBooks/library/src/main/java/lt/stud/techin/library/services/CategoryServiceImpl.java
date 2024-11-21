@@ -26,7 +26,9 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Book> getBooksByCategoryId(Long id) {
-        return null;
+        return bookRepository.findAll().stream()
+                .filter(b -> b.getBookCategory()
+                        .getId().equals(id)).toList();
     }
 
     @Override
