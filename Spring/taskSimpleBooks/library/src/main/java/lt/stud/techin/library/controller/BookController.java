@@ -27,8 +27,9 @@ public class BookController {
         return bookService.getBooks();
     }
 
+
     @PostMapping
-    ResponseEntity<Book> createBook(@Valid @RequestBody BookRequest book){
+    ResponseEntity<Book> createBook(@RequestBody @Valid BookRequest book){
 
         Book newBook = bookService.createBook(book);
 
@@ -36,7 +37,8 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody BookRequest newBook) {
+    ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody @Valid BookRequest newBook) {
+
         Book updatedBook = bookService.updateBook(newBook, id);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(updatedBook);
