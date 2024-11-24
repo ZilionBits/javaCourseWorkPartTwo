@@ -1,21 +1,18 @@
 package lt.techin.cinema.controller;
 
+import lombok.AllArgsConstructor;
+import lt.techin.cinema.dto.SeatRequest;
+import lt.techin.cinema.dto.SeatResponse;
 import lt.techin.cinema.seats.Cinema;
-import lt.techin.cinema.seats.Seat;
 import lt.techin.cinema.service.SeatsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping
 public class CinemaController {
 
     private final SeatsService seatsService;
-
-    public CinemaController(SeatsService seatsService) {
-        this.seatsService = seatsService;
-    }
 
     @GetMapping("/seats")
     public Cinema getSeats(){
@@ -23,10 +20,9 @@ public class CinemaController {
         return seatsService.getSeats();
     }
 
-    @GetMapping("/purchase")
-    public Seat bookSeat(){
-
-        return seatsService.bookSeat();
+    @PostMapping("/purchase")
+    public SeatResponse bookSeat(@RequestBody SeatRequest seatRequest){
+        return seatsService.bookSeat(seatRequest);
     }
 
 }

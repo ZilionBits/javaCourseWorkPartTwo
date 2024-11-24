@@ -1,11 +1,12 @@
 package lt.techin.cinema.service;
 
+import lt.techin.cinema.dto.SeatRequest;
+import lt.techin.cinema.dto.SeatResponse;
 import lt.techin.cinema.seats.Cinema;
-import lt.techin.cinema.seats.Seat;
 
 public interface SeatsService {
 
     Cinema getSeats();
 
-    Seat bookSeat();
+    SeatResponse bookSeat(SeatRequest seatRequest);
 }
