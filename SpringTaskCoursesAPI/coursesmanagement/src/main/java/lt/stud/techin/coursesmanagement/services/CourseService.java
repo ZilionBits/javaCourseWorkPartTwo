@@ -12,5 +12,6 @@ public interface CourseService {
     List<Course> getCoursesByDescription(String description);
     Course addCourse(CourseRequest courseRequest);
     void deleteCourse(Long id);
+    Course updateCourse(Long id, CourseRequest courseRequest);
 
 }

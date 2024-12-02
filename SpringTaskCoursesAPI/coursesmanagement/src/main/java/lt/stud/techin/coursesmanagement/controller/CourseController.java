@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -49,6 +48,19 @@ public class CourseController {
                 .body("Course successfully deleted.");
     }
 
+    @PutMapping("/{courseId}")
+    public ResponseEntity<Course> updateCourse(@PathVariable Long courseId, @RequestBody @Valid CourseRequest courseRequest){
+
+        if(courseRequest.getStartDate().isAfter(courseRequest.getEndDate())){
+            throw new StartDateIsGreaterThanEndDateException("Start Date is after End Date.");
+        }
+
+        Course updatedCourse = courseService.updateCourse(courseId, courseRequest);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(updatedCourse);
+
+    }
 
 
 

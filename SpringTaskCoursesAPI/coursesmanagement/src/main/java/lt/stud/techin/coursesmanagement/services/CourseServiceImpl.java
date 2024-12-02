@@ -43,7 +43,22 @@ public class CourseServiceImpl implements CourseService{
         if(courseRepository.existsById(id)) {
             courseRepository.deleteById(id);
         } else {
-            throw new CourseByIdNotExistException("Course with the specified ID does not exist.");
+            throw new CourseByIdNotExistException();
         }
+    }
+
+    @Override
+    public Course updateCourse(Long id, CourseRequest courseRequest) {
+
+            Course selectedCourse = courseRepository.findById(id)
+                    .orElseThrow(CourseByIdNotExistException::new);
+
+            selectedCourse.setName(courseRequest.getName());
+            selectedCourse.setDescription(courseRequest.getDescription());
+            selectedCourse.setType(courseRequest.isType() ? "Live" : "Online");
+            selectedCourse.setStartDate(courseRequest.getStartDate());
+            selectedCourse.setEndDate(courseRequest.getEndDate());
+
+            return selectedCourse;
     }
 }
