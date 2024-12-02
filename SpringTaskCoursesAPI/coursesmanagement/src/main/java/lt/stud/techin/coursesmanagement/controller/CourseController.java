@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,9 +22,12 @@ public class CourseController {
     private final CourseRepository courseRepository;
     private final CourseService courseService;
 
+
     @GetMapping
-    public List<Course> getCourses() {
-        return courseRepository.findAll();
+    public ResponseEntity<List<Course>> getCoursesByDescription(@RequestParam String description){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(courseRepository.findAll().stream()
+                        .filter(c -> c.getDescription().contains(description)).toList());
     }
 
     @PostMapping
@@ -37,6 +41,15 @@ public class CourseController {
                 .body(courseService.addCourse(courseRequest));
 
     }
+
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<String> deleteCourse(@PathVariable Long courseId){
+        courseService.deleteCourse(courseId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body("Course successfully deleted.");
+    }
+
+
 
 
 
