@@ -22,6 +22,15 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Course addCourse(CourseRequest courseRequest) {
 
-        return null;
+        Course newCourse = new Course();
+
+        newCourse.setName(courseRequest.getName());
+        newCourse.setDescription(courseRequest.getDescription());
+        newCourse.setType(courseRequest.isType() ? "Live" : "Online");
+        newCourse.setStartDate(courseRequest.getStartDate());
+        newCourse.setEndDate(courseRequest.getEndDate());
+        courseRepository.save(newCourse);
+
+        return newCourse;
     }
 }
